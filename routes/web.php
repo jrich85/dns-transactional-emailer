@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/preview', 'Controller@previewInvoice')->name('preview-invoice');
+Route::get('/previewreceipt', 'Controller@previewReceipt')->name('preview-receipt');
