@@ -21,4 +21,5 @@ Route::get('/', function () {
 Route::get('/preview/pdf/invoice', 'Controller@previewInvoicePDF')->name('preview-invoice');
 Route::get('/preview/pdf/receipt', 'Controller@previewReceiptPDF')->name('preview-receipt');
 Route::get('/preview/email/invoice', 'Controller@previewInvoiceEmail')->name('preview-invoice');
+Route::get('/preview/email/invoice/{isLate}', 'Controller@previewInvoiceEmail')->name('preview-invoice');
 Route::get('/preview/email/receipt', 'Controller@previewReceiptEmail')->name('preview-receipt');

@@ -28,6 +28,10 @@
                 font-size:10pt;
             }
 
+            .late {
+                color: red;
+            }
+
             body {
                 max-width:700px;
             }
@@ -37,6 +41,14 @@
         <p>
             Dear {{ $prefix }} {{ $lastName }},
         </p>
+        @if ($isLate)
+        <p class="late">
+            Your health and dental premium payment is due by {{ $dueDate }}. If payment is
+            not received by the deadline <strong>your plan will be terminated</strong>.
+            Don't delay! After termination, you can only rejoin the plan by providing
+            evidence of good health for all applicants.
+        </p>
+        @endif
         <p>
             Example Company Inc. is proud to be one of the few provincial medical
             associations to provide its members and their families with a comprehensive

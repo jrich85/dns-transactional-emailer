@@ -45,7 +45,7 @@ class Controller extends BaseController
         return $pdf->stream();
     }
 
-    public function previewInvoiceEmail(/*Request $request*/)
+    public function previewInvoiceEmail(bool $isLate = false)
     {
         $dateFormat = 'F j, Y';
 
@@ -56,7 +56,7 @@ class Controller extends BaseController
             'membershipNum' => 'ckz03r4u60001e3bzb7iqdmyq',
         ];
 
-        return new Invoice($data);
+        return new Invoice($data, $isLate);
     }
 
     public function previewReceiptPDF(/*Request $request*/): Response

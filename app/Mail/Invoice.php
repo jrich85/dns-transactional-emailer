@@ -15,18 +15,20 @@ class Invoice extends Mailable
     public string $lastName;
     public string $dueDate;
     public string $membershipNum;
+    public bool $isLate;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(object $info)
+    public function __construct(object $info, bool $isLate = false)
     {
         $this->prefix = $info->prefix ?? '';
         $this->lastName = $info->lastName ?? '';
         $this->dueDate = $info->dueDate ?? '';
         $this->membershipNum = $info->membershipNum ?? '';
+        $this->isLate = $isLate;
     }
 
     /**
