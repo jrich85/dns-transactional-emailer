@@ -18,5 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/preview', 'Controller@previewInvoice')->name('preview-invoice');
-Route::get('/previewreceipt', 'Controller@previewReceipt')->name('preview-receipt');
+Route::get('/preview/pdf/invoice', 'Controller@previewInvoicePDF')->name('preview-invoice');
+Route::get('/preview/pdf/receipt', 'Controller@previewReceiptPDF')->name('preview-receipt');
+Route::get('/preview/email/invoice', 'Controller@previewInvoiceEmail')->name('preview-invoice');
+Route::get('/preview/email/receipt', 'Controller@previewReceiptEmail')->name('preview-receipt');

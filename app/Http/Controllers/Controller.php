@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Invoice;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -14,7 +15,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function previewInvoice(/*Request $request*/): Response
+    public function previewInvoicePDF(/*Request $request*/): Response
     {
         $dateFormat = 'F j, Y';
 
@@ -40,11 +41,25 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('PDF/invoice', $data);
+        $pdf->loadView('PDF.invoice', $data);
         return $pdf->stream();
     }
 
-    public function previewReceipt(/*Request $request*/): Response
+    public function previewInvoiceEmail(/*Request $request*/)
+    {
+        $dateFormat = 'F j, Y';
+
+        $data = (object)[
+            'prefix' => 'Dr.',
+            'lastName' => 'Blow',
+            'dueDate' => date($dateFormat, strtotime('2021-05-01')),
+            'membershipNum' => 'ckz03r4u60001e3bzb7iqdmyq',
+        ];
+
+        return new Invoice($data);
+    }
+
+    public function previewReceiptPDF(/*Request $request*/): Response
     {
         $dateFormat = 'F j, Y';
 
@@ -69,7 +84,7 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('PDF/receipt', $data);
+        $pdf->loadView('PDF.receipt', $data);
         return $pdf->stream();
     }
 }
