@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Invoice;
+use App\Mail\Receipt;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -87,4 +88,15 @@ class Controller extends BaseController
         $pdf->loadView('PDF.receipt', $data);
         return $pdf->stream();
     }
+
+    public function previewReceiptEmail()
+    {
+        $data = (object)[
+            'prefix' => 'Dr.',
+            'lastName' => 'Blow',
+        ];
+
+        return new Receipt($data);
+    }
+
 }
