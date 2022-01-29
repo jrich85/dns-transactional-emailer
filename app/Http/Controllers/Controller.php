@@ -40,7 +40,7 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('invoice', $data);
+        $pdf->loadView('PDF/invoice', $data);
         return $pdf->stream();
     }
 
@@ -69,7 +69,7 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('receipt', $data);
+        $pdf->loadView('PDF/receipt', $data);
         return $pdf->stream();
     }
 }
