@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Invoice;
-use App\Mail\Receipt;
+use App\Mail\HED\Invoice as HEDInvoice;
+use App\Mail\HED\Receipt as HEDReceipt;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -42,7 +42,7 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('PDF.invoice', $data);
+        $pdf->loadView('PDF.HED.invoice', $data);
         return $pdf->stream();
     }
 
@@ -57,7 +57,7 @@ class Controller extends BaseController
             'membershipNum' => 'ckz03r4u60001e3bzb7iqdmyq',
         ];
 
-        return new Invoice($data, $isLate);
+        return new HEDInvoice($data, $isLate);
     }
 
     public function previewReceiptPDF(/*Request $request*/): Response
@@ -85,7 +85,7 @@ class Controller extends BaseController
 
 
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadView('PDF.receipt', $data);
+        $pdf->loadView('PDF.HED.receipt', $data);
         return $pdf->stream();
     }
 
@@ -96,7 +96,7 @@ class Controller extends BaseController
             'lastName' => 'Blow',
         ];
 
-        return new Receipt($data);
+        return new HEDReceipt($data);
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\HED;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,6 +31,6 @@ class Receipt extends Mailable
      */
     public function build()
     {
-        return $this->view('email.receipt');
+        return $this->view('email.HED.receipt');
     }
 }
