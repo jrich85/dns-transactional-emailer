@@ -19,8 +19,10 @@
                     {{ $fullName }}
                 </div>
                 <div class="address">
-                    {{ $address1 }}<br>
-                    {{ $address2 }}
+                    {{ $address1 }}
+                    @if($address2)
+                        <br>{{ $address2 }}
+                    @endif
                 </div>
                 <div class="location">
                     {{ $city }},

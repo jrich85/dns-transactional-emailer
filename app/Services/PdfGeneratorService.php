@@ -15,7 +15,7 @@ class PdfGeneratorService
         $data = [
             'fullName' => $info['fullName'],
             'address1' => $info['address1'],
-            'address2' => $info['address2'],
+            'address2' => $info['address2'] ?? '',
             'city' => $info['city'],
             'province' => $info['province'],
             'postalCode' => $info['postalCode'],
@@ -53,7 +53,7 @@ class PdfGeneratorService
             'fullName' => $info['fullName'],
             'personalIncorporation' => $info['personalIncorporation'] ?? '',
             'address1' => $info['address1'],
-            'address2' => $info['address2'],
+            'address2' => $info['address2'] ?? '',
             'city' => $info['city'],
             'province' => $info['province'],
             'postalCode' => $info['postalCode'],
