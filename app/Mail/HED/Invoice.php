@@ -26,10 +26,10 @@ class Invoice extends Mailable
      */
     public function __construct(array $info, string $filename, bool $isLate = false)
     {
-        $this->prefix = $info['prefix'] ?? '';
-        $this->lastName = $info['lastName'] ?? '';
-        $this->dueDate = $info['dueDate'] ?? '';
-        $this->membershipNum = $info['membershipNum'] ?? '';
+        $this->prefix = $info['prefix'];
+        $this->lastName = $info['lastName'];
+        $this->dueDate = $info['dueDate'];
+        $this->membershipNum = $info['membershipNum'];
         $this->isLate = $isLate;
         $this->attachment = $filename;
     }
