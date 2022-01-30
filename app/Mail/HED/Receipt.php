@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class Receipt extends Mailable
 {
@@ -18,10 +19,11 @@ class Receipt extends Mailable
      *
      * @return void
      */
-    public function __construct(object $info)
+    public function __construct(array $info, string $filename)
     {
-        $this->prefix = $info->prefix;
-        $this->lastName = $info->lastName;
+        $this->prefix = $info['prefix'];
+        $this->lastName = $info['lastName'];
+        $this->attachment = $filename;
     }
 
     /**
@@ -31,6 +33,7 @@ class Receipt extends Mailable
      */
     public function build()
     {
-        return $this->view('email.HED.receipt');
+        return $this->view('email.HED.receipt')
+            ->attach(Storage::get($this->attachment));
     }
 }

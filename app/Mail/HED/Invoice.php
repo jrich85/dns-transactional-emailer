@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class Invoice extends Mailable
 {
@@ -16,19 +17,21 @@ class Invoice extends Mailable
     public string $dueDate;
     public string $membershipNum;
     public bool $isLate;
+    public string $attachment;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(object $info, bool $isLate = false)
+    public function __construct(array $info, string $filename, bool $isLate = false)
     {
-        $this->prefix = $info->prefix ?? '';
-        $this->lastName = $info->lastName ?? '';
-        $this->dueDate = $info->dueDate ?? '';
-        $this->membershipNum = $info->membershipNum ?? '';
+        $this->prefix = $info['prefix'] ?? '';
+        $this->lastName = $info['lastName'] ?? '';
+        $this->dueDate = $info['dueDate'] ?? '';
+        $this->membershipNum = $info['membershipNum'] ?? '';
         $this->isLate = $isLate;
+        $this->attachment = $filename;
     }
 
     /**
@@ -38,6 +41,7 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        return $this->view('email.HED.invoice');
+        return $this->view('email.HED.invoice')
+            ->attach(Storage::get($this->attachment));
     }
 }
