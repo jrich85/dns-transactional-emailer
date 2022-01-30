@@ -1,0 +1,88 @@
+body {
+    margin:0;
+    padding:0;
+    font-family: Calibri, sans-serif;
+}
+
+body * {
+    box-sizing:border-box;
+}
+
+body, .app-bar, aside {
+    background-color: #004700;
+    color:white;
+}
+
+.app-bar {
+    width:100%;
+    font-weight:bold;
+    height: 3em;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.app-bar > div {
+    line-height:3em;
+}
+
+.app-bar .img-wrapper {
+    width:20%;
+}
+
+.wrapper {
+    display:flex;
+    align-items: stretch;
+    align-content: flex-start;
+    height:100%;
+    flex-wrap:wrap;
+    justify-content:start
+}
+
+.img-wrapper img {
+    margin:0 auto;
+    display:block;
+}
+
+aside {
+    width: 20%;
+}
+
+nav ul {
+    list-style-type:none;
+    padding:0;
+}
+
+nav ul li a {
+    font-weight:bold;
+    text-decoration:none;
+    color: #fff;
+    display:block;
+    padding:0.5em 1em;
+}
+
+nav a.active {
+    background-color: #8a734a;
+}
+
+section.content {
+    margin-right:1em;
+    margin-bottom:1em;
+    width:78%;
+    align-self:stretch;
+    border:3px solid #8a734a;
+    border-radius:1em;
+    padding:0.1em 1em 1em;
+    background-color: #333;
+}
+
+.email-content {
+    border-radius:1em;
+    background-color:white;
+    color:black;
+    padding:0.1em 1em 1em;
+}
+
+.email-content * {
+    color:black;
+}

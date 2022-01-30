@@ -14,6 +14,8 @@ class Receipt extends Mailable
 
     public string $prefix;
     public string $lastName;
+    public bool $preview;
+
     /**
      * Create a new message instance.
      *
@@ -24,6 +26,7 @@ class Receipt extends Mailable
         $this->prefix = $info['prefix'];
         $this->lastName = $info['lastName'];
         $this->attachment = $filename;
+        $this->preview = $info['preview'] ?? false;
     }
 
     /**

@@ -18,6 +18,7 @@ class Invoice extends Mailable
     public string $membershipNum;
     public bool $isLate;
     public string $attachment;
+    public bool $preview;
 
     /**
      * Create a new message instance.
@@ -30,6 +31,7 @@ class Invoice extends Mailable
         $this->lastName = $info['lastName'];
         $this->dueDate = $info['dueDate'];
         $this->membershipNum = $info['membershipNum'];
+        $this->preview = $info['preview'] ?? false;
         $this->isLate = $isLate;
         $this->attachment = $filename;
     }

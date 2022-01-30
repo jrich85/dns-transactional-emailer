@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\PreviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/preview/pdf/invoice', 'Controller@previewInvoicePDF')->name('preview-invoice');
-Route::get('/preview/pdf/receipt', 'Controller@previewReceiptPDF')->name('preview-receipt');
-Route::get('/preview/email/invoice', 'Controller@previewInvoiceEmail')->name('preview-invoice');
-Route::get('/preview/email/invoice/{isLate}', 'Controller@previewInvoiceEmail')->name('preview-invoice');
-Route::get('/preview/email/receipt', 'Controller@previewReceiptEmail')->name('preview-receipt');
+Route::get('/invoice', 'CsvController@promptForInvoiceCsv');
+Route::get('/receipt', 'CsvController@promptForReceiptCsv');
+
+Route::get('/preview/pdf/invoice', 'PreviewController@previewInvoicePDF')->name('preview-invoice');
+Route::get('/preview/pdf/receipt', 'PreviewController@previewReceiptPDF')->name('preview-receipt');
+Route::get('/preview/email/invoice', 'PreviewController@previewInvoiceEmail')->name('preview-invoice');
+Route::get('/preview/email/invoice/{isLate}', 'PreviewController@previewInvoiceEmail')->name('preview-invoice');
+Route::get('/preview/email/receipt', 'PreviewController@previewReceiptEmail')->name('preview-receipt');
