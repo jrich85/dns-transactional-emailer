@@ -4,6 +4,7 @@ namespace Tests\Unit\Mail\HED;
 
 use App\Mail\HED\Invoice;
 use ErrorException;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\Support\DataGenerators\InvoiceEmailGenerator;
 use Tests\TestCase;
@@ -75,5 +76,19 @@ class InvoiceTest extends TestCase
         $built = $mail->build();
 
         static::assertCount(1, $built->attachments);
+    }
+
+    /** @test */
+    public function invoiceEmailCanBeSent(): void
+    {
+        $data = $this->generator->generate();
+        $filename = 'fakeFile.txt';
+        Storage::fake('local')->put($filename, 'some information');
+
+        Mail::fake();
+
+        Mail::to('example@example.com')->send(new Invoice($data, $filename));
+
+        Mail::assertQueued(Invoice::class);
     }
 }
