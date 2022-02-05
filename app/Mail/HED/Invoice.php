@@ -8,17 +8,18 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 
-class Invoice extends Mailable implements ShouldQueue
+class Invoice extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public string $prefix;
-    public string $lastName;
-    public string $dueDate;
-    public string $membershipNum;
-    public bool $isLate;
     public string $attachment;
+    public string $dueDate;
+    public bool $isLate;
+    public string $lastName;
+    public string $membershipNum;
+    public string $prefix;
     public bool $preview;
+    public string $subjectLine;
 
     /**
      * Create a new message instance.
@@ -34,6 +35,9 @@ class Invoice extends Mailable implements ShouldQueue
         $this->preview = $info['preview'] ?? false;
         $this->isLate = $isLate;
         $this->attachment = $filename;
+        $this->subjectLine = $this->isLate
+            ? 'ACTION REQUIRED: Your health and dental coverage will be terminated on March 21, 2022'
+            : 'Health and Dental Premium Invoice 2022-23';
     }
 
     /**
@@ -44,7 +48,7 @@ class Invoice extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->view('email.HED.invoice')
-            ->subject('Health and Dental Premium Invoice 2022-23')
+            ->subject($this->subjectLine)
             ->attachData(
                 Storage::get($this->attachment),
                 $this->attachment,

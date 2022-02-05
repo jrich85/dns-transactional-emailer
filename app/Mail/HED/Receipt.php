@@ -37,6 +37,11 @@ class Receipt extends Mailable
     public function build()
     {
         return $this->view('email.HED.receipt')
-            ->attach(Storage::get($this->attachment));
+            ->subject('Health and Dental Premium Receipt 2022-23')
+            ->attachData(
+                Storage::get($this->attachment),
+                $this->attachment,
+                ['mime' => 'application/pdf']
+            );
     }
 }

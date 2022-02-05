@@ -20,6 +20,7 @@ class CsvController extends BaseController
 
     public function importInvoices(ImportInvoiceCsvRequest $request)
     {
+        /** @var ImportInvoiceCsvService $importService */
         $importService = resolve(ImportInvoiceCsvService::class);
 
         $file = $request->file('csv_invoices');
@@ -34,6 +35,8 @@ class CsvController extends BaseController
             return $valid;
         }
 
-        return response()->json($request->all());
+        $emailsSent = $importService->sendEmails();
+
+        return response()->json(['sent' => $emailsSent]);
     }
 }

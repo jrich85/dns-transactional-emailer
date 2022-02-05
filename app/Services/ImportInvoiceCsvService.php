@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Jobs\SendInvoiceEmail;
 use App\Mail\HED\Invoice;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -60,17 +61,16 @@ class ImportInvoiceCsvService
 
             $generatedPdf = $this->pdfGenerator->createHEDInvoice($pdfFields);
 
-            $this->queueEmail($to, $emailFields, $generatedPdf);
+            $this->dispatchEmail($to, $emailFields, $generatedPdf);
             $emailsQueued++;
         }
 
         return $emailsQueued;
     }
 
-    protected function queueEmail($to, $emailFields, $generatedPdf): void
+    protected function dispatchEmail($to, $emailFields, $generatedPdf): void
     {
-        Mail::to($to)
-            ->send(new Invoice($emailFields, $generatedPdf));
+        SendInvoiceEmail::dispatch($to, $emailFields, $generatedPdf);
     }
 
     protected function mapHeaderToColumns(): void
