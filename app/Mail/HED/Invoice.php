@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 
-class Invoice extends Mailable
+class Invoice extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -44,6 +44,11 @@ class Invoice extends Mailable
     public function build()
     {
         return $this->view('email.HED.invoice')
-            ->attach(Storage::get($this->attachment));
+            ->subject('Health and Dental Premium Invoice 2022-23')
+            ->attachData(
+                Storage::get($this->attachment),
+                $this->attachment,
+                ['mime' => 'application/pdf']
+            );
     }
 }
