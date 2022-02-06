@@ -30,13 +30,8 @@
                     <button type="submit">
                         Submit
                     </button>
-                    @if (isset($errors) && count($errors))
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }} </li>
-                            @endforeach
-                        </ul>
-                    @endif
+                    @include('pages.includes.errors')
+                    @include('pages.includes.emails-queued')
                 </form>
             </section>
         </div>

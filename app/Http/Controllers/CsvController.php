@@ -48,9 +48,9 @@ class CsvController extends BaseController
             return $valid;
         }
 
-        $emailsSent = $importService->sendEmails();
+        $emailsQueued = $importService->sendEmails();
 
-        return response()->json(['sent' => $emailsSent]);
+        return redirect()->back()->with('queued', $emailsQueued);
     }
 
     public function importReceipts(ImportReceiptCsvRequest $request)
@@ -70,8 +70,8 @@ class CsvController extends BaseController
             return $valid;
         }
 
-        $emailsSent = $importService->sendEmails();
+        $emailsQueued = $importService->sendEmails();
 
-        return response()->json(['sent' => $emailsSent]);
+        return redirect()->back()->with('queued', $emailsQueued);
     }
 }
