@@ -11,7 +11,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
-use NumberFormatter;
 
 class PreviewController extends BaseController
 {
@@ -55,7 +54,27 @@ class PreviewController extends BaseController
             ]);
     }
 
-    public function previewInvoiceEmail(bool $isLate = false)
+    public function previewInvoiceReminderEmail()
+    {
+        $content = $this->generateInvoiceEmail(true);
+
+        return view('pages.previews.email.HED.invoice', [
+            'active' => route('preview-invoice-reminder-email'),
+            'content' => $content
+        ]);
+    }
+
+    public function previewInvoiceEmail()
+    {
+        $content = $this->generateInvoiceEmail(false);
+
+        return view('pages.previews.email.HED.invoice', [
+            'active' => route('preview-invoice-email'),
+            'content' => $content
+        ]);
+    }
+
+    protected function generateInvoiceEmail(bool $isLate)
     {
         $data = [
             'prefix' => 'PREFIX',
@@ -82,18 +101,11 @@ class PreviewController extends BaseController
 
         $content = (new HEDInvoice($data, $filename, $isLate))->build();
 
-        return view('pages.previews.email.HED.invoice', [
-            'active' => '/preview/email/invoice',
-            'content' => $content
-        ]);
+        return $content;
     }
 
     public function previewReceiptPDF()
     {
-        $dateFormat = 'F j, Y';
-
-        $numberFormatter = new NumberFormatter('en_CA', NumberFormatter::CURRENCY);
-
         $data = [
             'fullName' => 'FULL NAME',
             'personalIncorporation' => 'PERSONAL INCORPORATION',
@@ -147,7 +159,7 @@ class PreviewController extends BaseController
         $content = (new HEDReceipt($data, $filename))->build();
 
         return view('pages.previews.email.HED.receipt', [
-            'active' => '/preview/email/receipt',
+            'active' => route('preview-receipt-email'),
             'content' => $content
         ]);
 

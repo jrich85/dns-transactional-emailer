@@ -19,12 +19,13 @@ Route::get('/', function () {
 });
 
 Route::get('/invoice', 'CsvController@promptForInvoiceCsv')->name('prompt-invoices');
+Route::get('/invoice-reminders', 'CsvController@promptForInvoiceReminderCsv')->name('prompt-invoice-reminders');
 Route::post('/invoices/import', 'CsvController@importInvoices')->name('import-invoices');
 Route::get('/receipt', 'CsvController@promptForReceiptCsv')->name('prompt-receipts');
 Route::post('/receipts/import', 'CsvController@importReceipts')->name('import-receipts');
 
-Route::get('/preview/pdf/invoice', 'PreviewController@previewInvoicePDF')->name('preview-invoice');
-Route::get('/preview/pdf/receipt', 'PreviewController@previewReceiptPDF')->name('preview-receipt');
-Route::get('/preview/email/invoice', 'PreviewController@previewInvoiceEmail')->name('preview-invoice');
-Route::get('/preview/email/invoice/{isLate}', 'PreviewController@previewInvoiceEmail')->name('preview-invoice');
-Route::get('/preview/email/receipt', 'PreviewController@previewReceiptEmail')->name('preview-receipt');
+Route::get('/preview/pdf/invoice', 'PreviewController@previewInvoicePDF')->name('preview-invoice-pdf');
+Route::get('/preview/pdf/receipt', 'PreviewController@previewReceiptPDF')->name('preview-receipt-pdf');
+Route::get('/preview/email/invoice', 'PreviewController@previewInvoiceEmail')->name('preview-invoice-email');
+Route::get('/preview/email/invoice/reminder', 'PreviewController@previewInvoiceReminderEmail')->name('preview-invoice-reminder-email');
+Route::get('/preview/email/receipt', 'PreviewController@previewReceiptEmail')->name('preview-receipt-email');

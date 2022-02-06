@@ -12,18 +12,28 @@ class CsvController extends BaseController
 {
     public function promptForInvoiceCsv()
     {
-        return view('pages.invoice', ['active' => '/invoice']);
+        return view('pages.invoice', ['active' => route('prompt-invoices')]);
+    }
+
+    public function promptForInvoiceReminderCsv()
+    {
+        return view('pages.invoice-reminders', ['active' => route('prompt-invoice-reminders')]);
     }
 
     public function promptForReceiptCsv()
     {
-        return view('pages.receipt', ['active' => '/receipt']);
+        return view('pages.receipt', ['active' => route('prompt-receipts')]);
     }
 
     public function importInvoices(ImportInvoiceCsvRequest $request)
     {
-        /** @var ImportInvoiceCsvService $importService */
-        $importService = resolve(ImportInvoiceCsvService::class);
+        if ($request->input('late')) {
+            /** @var ImportInvoiceReminderCsvService $importService */
+            $importService = resolve(ImportInvoiceReminderCsvService::class);
+        } else {
+            /** @var ImportInvoiceCsvService $importService */
+            $importService = resolve(ImportInvoiceCsvService::class);
+        }
 
         $file = $request->file('csv_invoices');
 

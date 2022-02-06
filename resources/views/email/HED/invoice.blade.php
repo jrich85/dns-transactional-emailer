@@ -34,6 +34,10 @@
                 color: red;
             }
 
+            .late strong {
+                color: red;
+            }
+
             .email-content {
                 max-width:700px;
             }
