@@ -1,10 +1,10 @@
 <?php
 namespace App\Services;
 
-use App\Jobs\SendInvoiceEmail;
+use App\Jobs\SendReceiptEmail;
 use Illuminate\Support\Facades\Validator;
 
-class ImportInvoiceCsvService
+class ImportReceiptCsvService
 {
     protected PdfGeneratorService $pdfGenerator;
     protected array $header;
@@ -57,7 +57,7 @@ class ImportInvoiceCsvService
                 'name' => $row[$this->columnMap[Columns::FULL_NAME]]
             ];
 
-            $generatedPdf = $this->pdfGenerator->createHEDInvoice($pdfFields);
+            $generatedPdf = $this->pdfGenerator->createHEDReceipt($pdfFields);
 
             $this->dispatchEmail($to, $emailFields, $generatedPdf);
             $emailsQueued++;
@@ -68,7 +68,7 @@ class ImportInvoiceCsvService
 
     protected function dispatchEmail($to, $emailFields, $generatedPdf): void
     {
-        SendInvoiceEmail::dispatch($to, $emailFields, $generatedPdf);
+        SendReceiptEmail::dispatch($to, $emailFields, $generatedPdf);
     }
 
     protected function mapHeaderToColumns(): void
@@ -90,14 +90,11 @@ class ImportInvoiceCsvService
             Columns::CITY,
             Columns::PROVINCE,
             Columns::POSTAL_CODE,
-            Columns::INVOICE_DATE,
-            Columns::INVOICE_NUMBER,
-            Columns::SUBSCRIBER_NUMBER,
             Columns::FISCAL_START_DATE,
             Columns::FISCAL_END_DATE,
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
-            Columns::DUE_DATE,
+            Columns::DATE_RECEIVED,
         ];
     }
 
@@ -115,14 +112,11 @@ class ImportInvoiceCsvService
             Columns::PROVINCE,
             Columns::POSTAL_CODE,
             Columns::INCORPORATION,
-            Columns::INVOICE_DATE,
-            Columns::INVOICE_NUMBER,
-            Columns::SUBSCRIBER_NUMBER,
             Columns::FISCAL_START_DATE,
             Columns::FISCAL_END_DATE,
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
-            Columns::DUE_DATE,
+            Columns::DATE_RECEIVED,
         ];
     }
 
@@ -155,18 +149,16 @@ class ImportInvoiceCsvService
     {
         return [
             'fullName' => $row[$this->columnMap[Columns::FULL_NAME]],
+            'personalIncorporation' => $row[$this->columnMap[Columns::INCORPORATION]] ?? '',
             'address1' => $row[$this->columnMap[Columns::ADDRESS1]],
             'address2' => $row[$this->columnMap[Columns::ADDRESS2]] ?? '',
             'city' => $row[$this->columnMap[Columns::CITY]],
             'province' => $row[$this->columnMap[Columns::PROVINCE]],
             'postalCode' => $row[$this->columnMap[Columns::POSTAL_CODE]],
-            'invoiceDate' => $row[$this->columnMap[Columns::INVOICE_DATE]],
-            'invoiceNum' => $row[$this->columnMap[Columns::INVOICE_NUMBER]],
             'membershipNum' => $row[$this->columnMap[Columns::MEMBERSHIP_NUMBER]],
-            'subscriberNum' => $row[$this->columnMap[Columns::SUBSCRIBER_NUMBER]],
             'fiscalStartDate' => $row[$this->columnMap[Columns::FISCAL_START_DATE]],
             'fiscalEndDate' => $row[$this->columnMap[Columns::FISCAL_END_DATE]],
-            'dueDate' => $row[$this->columnMap[Columns::DUE_DATE]],
+            'dateReceived' => $row[$this->columnMap[Columns::DATE_RECEIVED]],
             'planType' => $row[$this->columnMap[Columns::PLAN_TYPE]],
             'amount' => $row[$this->columnMap[Columns::AMOUNT]],
         ];
@@ -177,8 +169,6 @@ class ImportInvoiceCsvService
         return [
             'prefix' => $row[$this->columnMap[Columns::PREFIX]],
             'lastName' => $row[$this->columnMap[Columns::LAST_NAME]],
-            'dueDate' => $row[$this->columnMap[Columns::DUE_DATE]],
-            'membershipNum' => $row[$this->columnMap[Columns::MEMBERSHIP_NUMBER]],
         ];
     }
 

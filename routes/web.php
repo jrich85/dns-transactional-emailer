@@ -21,7 +21,7 @@ Route::get('/', function () {
 Route::get('/invoice', 'CsvController@promptForInvoiceCsv')->name('prompt-invoices');
 Route::post('/invoices/import', 'CsvController@importInvoices')->name('import-invoices');
 Route::get('/receipt', 'CsvController@promptForReceiptCsv')->name('prompt-receipts');
-Route::post('/receipts/import', 'CsvController@importInvoices')->name('import-receipts');
+Route::post('/receipts/import', 'CsvController@importReceipts')->name('import-receipts');
 
 Route::get('/preview/pdf/invoice', 'PreviewController@previewInvoicePDF')->name('preview-invoice');
 Route::get('/preview/pdf/receipt', 'PreviewController@previewReceiptPDF')->name('preview-receipt');

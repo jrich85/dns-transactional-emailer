@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Jobs\SendInvoiceEmail;
 
-class ImportLateInvoiceCsvService extends ImportInvoiceCsvService
+class ImportInvoiceReminderCsvService extends ImportInvoiceCsvService
 {
     protected function dispatchEmail($to, $emailFields, $generatedPdf): void
     {

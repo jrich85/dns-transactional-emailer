@@ -8,6 +8,7 @@ class Columns {
     public const AMOUNT = 'amount';
     public const CITY = 'city';
     public const DUE_DATE = 'due date';
+    public const DATE_RECEIVED = 'payment date';
     public const EMAIL = 'email';
     public const FISCAL_START_DATE = 'fiscal start date';
     public const FISCAL_END_DATE = 'fiscal end date';
