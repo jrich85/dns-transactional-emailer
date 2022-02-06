@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ImportInvoiceCsvRequest;
 use App\Http\Requests\ImportReceiptCsvRequest;
 use App\Services\ImportInvoiceCsvService;
+use App\Services\ImportInvoiceReminderCsvService;
 use App\Services\ImportReceiptCsvService;
 use Illuminate\Routing\Controller as BaseController;
 
