@@ -10,9 +10,10 @@ class Columns {
     public const DUE_DATE = 'due date';
     public const DATE_RECEIVED = 'payment date';
     public const EMAIL = 'email';
+    public const FILENAME = 'pdf name';
     public const FISCAL_START_DATE = 'fiscal start date';
     public const FISCAL_END_DATE = 'fiscal end date';
-    public const FULL_NAME = 'full name';
+    public const FULL_NAME = 'name';
     public const INCORPORATION = 'incorporation';
     public const INVOICE_DATE = 'invoice date';
     public const INVOICE_NUMBER = 'invoice number';

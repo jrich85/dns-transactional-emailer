@@ -57,7 +57,9 @@ class ImportInvoiceCsvService
                 'name' => $row[$this->columnMap[Columns::FULL_NAME]]
             ];
 
-            $generatedPdf = $this->pdfGenerator->createHEDInvoice($pdfFields);
+            $filename = $row[$this->columnMap[Columns::FILENAME]];
+
+            $generatedPdf = $this->pdfGenerator->createHEDInvoice($pdfFields, $filename);
 
             $this->dispatchEmail($to, $emailFields, $generatedPdf);
             $emailsQueued++;
@@ -98,6 +100,7 @@ class ImportInvoiceCsvService
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
             Columns::DUE_DATE,
+            Columns::FILENAME,
         ];
     }
 
@@ -123,13 +126,17 @@ class ImportInvoiceCsvService
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
             Columns::DUE_DATE,
+            Columns::FILENAME,
         ];
     }
 
     protected function errorMessages(): array
     {
+        $columns = $this->expectedColumns();
+
         return [
-            'header.in' => 'Headers must have all of :values'
+            'header.in' => 'Headers must have all of :values',
+            'header.size' => 'Your file must have all and only all required fields: '.implode(', ', $columns),
         ];
     }
 

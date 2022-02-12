@@ -36,11 +36,13 @@ class Receipt extends Mailable
      */
     public function build()
     {
+        $fileWithoutPath = explode('\\', $this->attachment);
+
         return $this->view('email.HED.receipt')
             ->subject('Health and Dental Premium Receipt 2022-23')
             ->attachData(
                 Storage::get($this->attachment),
-                $this->attachment,
+                array_pop($fileWithoutPath),
                 ['mime' => 'application/pdf']
             );
     }

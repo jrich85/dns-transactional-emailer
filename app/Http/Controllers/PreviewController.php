@@ -43,7 +43,7 @@ class PreviewController extends BaseController
             'amount' => 'AMOUNT'
         ];
 
-        $filename = $this->pdfGenerator->createHEDInvoice($data);
+        $filename = $this->pdfGenerator->createHEDInvoice($data, 'example-invoice.pdf');
 
         return Response::make(
             Storage::get($filename),
@@ -97,7 +97,7 @@ class PreviewController extends BaseController
             'preview' => true,
         ];
 
-        $filename = $this->pdfGenerator->createHEDInvoice($data);
+        $filename = $this->pdfGenerator->createHEDInvoice($data, 'example-invoice.pdf');
 
         $content = (new HEDInvoice($data, $filename, $isLate))->build();
 
@@ -122,7 +122,7 @@ class PreviewController extends BaseController
             'dateReceived' => 'DATE RECEIVED',
         ];
 
-        $filename = $this->pdfGenerator->createHEDReceipt($data);
+        $filename = $this->pdfGenerator->createHEDReceipt($data, 'example-receipt.pdf');
 
         return Response::make(
             Storage::get($filename),
@@ -154,7 +154,7 @@ class PreviewController extends BaseController
             'preview' => true,
         ];
 
-        $filename = $this->pdfGenerator->createHEDReceipt($data);
+        $filename = $this->pdfGenerator->createHEDReceipt($data, 'example-receipt.pdf');
 
         $content = (new HEDReceipt($data, $filename))->build();
 

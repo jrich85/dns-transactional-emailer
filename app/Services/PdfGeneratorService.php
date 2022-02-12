@@ -4,14 +4,23 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PdfGeneratorService
 {
     /**
      * Creates a Health and Dental invoice and returns the resulting filename.
+     *
+     * @param string[] $info Information to be placed into the invoice template
+     * @param string $filename Desired filename for generated file. If missing the .pdf extension, it's added.
+     * @return string Resulting full-path filename.
      */
-    public function createHEDInvoice(array $info): string
+    public function createHEDInvoice(array $info, string $filename): string
     {
+        if (!Str::endsWith($filename, '.pdf')) {
+            $filename .= '.pdf';
+        }
+
         $data = [
             'fullName' => $info['fullName'],
             'address1' => $info['address1'],
@@ -34,21 +43,29 @@ class PdfGeneratorService
             Storage::disk('local')->makeDirectory('test/invoices');
         }
 
-        $filename = "test/invoices/HED-invoice-{$info['invoiceNum']}.pdf";
+        $fullPathFilename = "PDF/invoices/{$filename}";
 
         $pdf = App::make('dompdf.wrapper');
         $result = $pdf->loadView('PDF.HED.invoice', $data)->output();
 
-        Storage::disk('local')->put($filename, $result);
+        Storage::disk('local')->put($fullPathFilename, $result);
 
-        return $filename;
+        return $fullPathFilename;
     }
 
     /**
      * Creates a Health and Dental invoice and returns the resulting filename.
+     *
+     * @param string[] $info Information to be placed into the receipt template
+     * @param string $filename Desired filename for generated file. If missing the .pdf extension, it's added.
+     * @return string Resulting full-path filename.
      */
-    public function createHEDReceipt(array $info): string
+    public function createHEDReceipt(array $info, string $filename): string
     {
+        if (!Str::endsWith($filename, '.pdf')) {
+            $filename .= '.pdf';
+        }
+
         $data = [
             'fullName' => $info['fullName'],
             'personalIncorporation' => $info['personalIncorporation'] ?? '',
@@ -69,13 +86,13 @@ class PdfGeneratorService
             Storage::disk('local')->makeDirectory('test/receipts');
         }
 
-        $filename = "test/receipts/HED-receipt-{$info['membershipNum']}-{$info['dateReceived']}.pdf";
+        $fullPathFilename = "PDF/receipts/{$filename}";
 
         $pdf = App::make('dompdf.wrapper');
         $result = $pdf->loadView('PDF.HED.receipt', $data)->output();
 
-        Storage::disk('local')->put($filename, $result);
+        Storage::disk('local')->put($fullPathFilename, $result);
 
-        return $filename;
+        return $fullPathFilename;
     }
 }

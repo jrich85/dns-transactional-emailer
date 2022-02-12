@@ -31,9 +31,11 @@ class CsvController extends BaseController
         if ($request->input('late')) {
             /** @var ImportInvoiceReminderCsvService $importService */
             $importService = resolve(ImportInvoiceReminderCsvService::class);
+            $redirect = '/invoice-reminders';
         } else {
             /** @var ImportInvoiceCsvService $importService */
             $importService = resolve(ImportInvoiceCsvService::class);
+            $redirect = '/invoice';
         }
 
         $file = $request->file('csv_invoices');
@@ -50,7 +52,7 @@ class CsvController extends BaseController
 
         $emailsQueued = $importService->sendEmails();
 
-        return redirect()->back()->with('queued', $emailsQueued);
+        return redirect("{$redirect}?queued={$emailsQueued}");
     }
 
     public function importReceipts(ImportReceiptCsvRequest $request)
@@ -72,6 +74,6 @@ class CsvController extends BaseController
 
         $emailsQueued = $importService->sendEmails();
 
-        return redirect()->back()->with('queued', $emailsQueued);
+        return redirect("/receipt?queued={$emailsQueued}");
     }
 }

@@ -47,11 +47,13 @@ class Invoice extends Mailable
      */
     public function build()
     {
+        $fileWithoutPath = explode('\\', $this->attachment);
+
         return $this->view('email.HED.invoice')
             ->subject($this->subjectLine)
             ->attachData(
                 Storage::get($this->attachment),
-                $this->attachment,
+                array_pop($fileWithoutPath),
                 ['mime' => 'application/pdf']
             );
     }

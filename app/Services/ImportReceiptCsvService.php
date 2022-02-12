@@ -57,7 +57,9 @@ class ImportReceiptCsvService
                 'name' => $row[$this->columnMap[Columns::FULL_NAME]]
             ];
 
-            $generatedPdf = $this->pdfGenerator->createHEDReceipt($pdfFields);
+            $filename = $row[$this->columnMap[Columns::FILENAME]];
+
+            $generatedPdf = $this->pdfGenerator->createHEDReceipt($pdfFields, $filename);
 
             $this->dispatchEmail($to, $emailFields, $generatedPdf);
             $emailsQueued++;
@@ -95,6 +97,7 @@ class ImportReceiptCsvService
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
             Columns::DATE_RECEIVED,
+            Columns::FILENAME,
         ];
     }
 
@@ -117,6 +120,7 @@ class ImportReceiptCsvService
             Columns::PLAN_TYPE,
             Columns::AMOUNT,
             Columns::DATE_RECEIVED,
+            Columns::FILENAME,
         ];
     }
 
