@@ -75,7 +75,7 @@ class InvoiceTest extends TestCase
 
         $built = $mail->build();
 
-        static::assertCount(1, $built->attachments);
+        static::assertCount(1, $built->rawAttachments);
     }
 
     /** @test */
@@ -89,6 +89,6 @@ class InvoiceTest extends TestCase
 
         Mail::to('example@example.com')->send(new Invoice($data, $filename));
 
-        Mail::assertQueued(Invoice::class);
+        Mail::assertSent(Invoice::class);
     }
 }

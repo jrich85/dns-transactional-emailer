@@ -4,7 +4,7 @@ namespace App\Services;
 use App\Jobs\SendInvoiceEmail;
 use Illuminate\Support\Facades\Validator;
 
-class ImportInvoiceCsvService
+class ImportInvoiceCsvService implements CsvImportServiceContract
 {
     protected PdfGeneratorService $pdfGenerator;
     protected array $header;
@@ -59,18 +59,16 @@ class ImportInvoiceCsvService
 
             $filename = $row[$this->columnMap[Columns::FILENAME]];
 
-            $generatedPdf = $this->pdfGenerator->createHEDInvoice($pdfFields, $filename);
-
-            $this->dispatchEmail($to, $emailFields, $generatedPdf);
+            $this->dispatchEmail($to, $emailFields, $pdfFields, $filename);
             $emailsQueued++;
         }
 
         return $emailsQueued;
     }
 
-    protected function dispatchEmail($to, $emailFields, $generatedPdf): void
+    protected function dispatchEmail($to, $emailFields, $pdfFields, $filename): void
     {
-        SendInvoiceEmail::dispatch($to, $emailFields, $generatedPdf);
+        SendInvoiceEmail::dispatch($to, $emailFields, $pdfFields, $filename);
     }
 
     protected function mapHeaderToColumns(): void
@@ -132,28 +130,17 @@ class ImportInvoiceCsvService
 
     protected function errorMessages(): array
     {
-        $columns = $this->expectedColumns();
-
         return [
             'header.in' => 'Headers must have all of :values',
-            'header.size' => 'Your file must have all and only all required fields: '.implode(', ', $columns),
+            'header.size' => 'Your file must have all and only all required fields: '.implode(', ', $this->expectedColumns()),
         ];
     }
 
     protected function rules(): array
     {
-        $columns = $this->expectedColumns();
         $rules = [
-            'header' => 'required|array|size:'.count($columns).'|in:'.implode(',', $columns),
-            'content' => 'required|array|min:1',
+            'header' => 'required|array|size:'.count($this->expectedColumns()).'|in:'.implode(',', $this->expectedColumns()),
         ];
-        foreach ($this->columnMap as $column => $pos) {
-            $rule = 'string';
-            if (in_array($column, $this->requiredFields())) {
-                $rule .= '|required|min:1';
-            }
-            $rules["content.*.{$pos}"] = $rule;
-        }
 
         return $rules;
     }

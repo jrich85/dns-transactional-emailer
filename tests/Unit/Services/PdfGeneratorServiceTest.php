@@ -15,6 +15,7 @@ class PdfGeneratorServiceTest extends TestCase
     private PdfGeneratorService $pdfGenerator;
     private InvoicePDFGenerator $invoiceDataGenerator;
     private ReceiptPDFGenerator $receiptDataGenerator;
+    private string $dummyFilename = 'someFilename.pdf';
 
     protected function setUp(): void
     {
@@ -23,7 +24,7 @@ class PdfGeneratorServiceTest extends TestCase
         Storage::fake('local');
         $this->pdfGenerator = resolve(PdfGeneratorService::class);
         $this->invoiceDataGenerator = resolve(InvoicePDFGenerator::class);
-        $this->receiptDataGenerator = resolve(ReceiptDataGenerator::class);
+        $this->receiptDataGenerator = resolve(ReceiptPDFGenerator::class);
     }
 
     /** @test */
@@ -36,7 +37,7 @@ class PdfGeneratorServiceTest extends TestCase
             unset($dataPassedIn[$field]);
 
             try {
-                $this->pdfGenerator->createHEDInvoice($dataPassedIn);
+                $this->pdfGenerator->createHEDInvoice($dataPassedIn, $this->dummyFilename);
             } catch(ErrorException $e) {
                 static::assertSame('Undefined array key "'.$field.'"', $e->getMessage());
             }
@@ -46,7 +47,7 @@ class PdfGeneratorServiceTest extends TestCase
     /** @test */
     public function createHEDInvoiceGeneratesFile(): void
     {
-        $file = $this->pdfGenerator->createHEDInvoice($this->invoiceDataGenerator->generate());
+        $file = $this->pdfGenerator->createHEDInvoice($this->invoiceDataGenerator->generate(), $this->dummyFilename);
 
         Storage::disk('local')->assertExists($file);
     }
@@ -61,7 +62,7 @@ class PdfGeneratorServiceTest extends TestCase
             unset($dataPassedIn[$field]);
 
             try {
-                $this->pdfGenerator->createHEDReceipt($dataPassedIn);
+                $this->pdfGenerator->createHEDReceipt($dataPassedIn, $this->dummyFilename);
             } catch(ErrorException $e) {
                 static::assertSame('Undefined array key "'.$field.'"', $e->getMessage());
             }
@@ -71,7 +72,7 @@ class PdfGeneratorServiceTest extends TestCase
     /** @test */
     public function createHEDReceiptGeneratesFile(): void
     {
-        $file = $this->pdfGenerator->createHEDReceipt($this->receiptDataGenerator->generate());
+        $file = $this->pdfGenerator->createHEDReceipt($this->receiptDataGenerator->generate(), $this->dummyFilename);
 
         Storage::disk('local')->assertExists($file);
     }

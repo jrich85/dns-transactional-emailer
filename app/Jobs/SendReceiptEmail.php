@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\HED\Receipt;
+use App\Services\PdfGeneratorService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,18 +19,26 @@ class SendReceiptEmail implements ShouldQueue
 
     private object $to;
     private array $emailFields;
-    private string $generatedPdf;
+    private array $pdfFields;
+    private string $filename;
+    private PdfGeneratorService $pdfGenerator;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(object $to, array $emailFields, string $generatedPdf)
-    {
+    public function __construct(
+        object $to,
+        array $emailFields,
+        array $pdfFields,
+        string $filename
+    ) {
         $this->to = $to;
         $this->emailFields = $emailFields;
-        $this->generatedPdf = $generatedPdf;
+        $this->pdfFields = $pdfFields;
+        $this->filename = $filename;
+        $this->pdfGenerator = resolve(PdfGeneratorService::class);
     }
 
     /**
@@ -39,8 +48,10 @@ class SendReceiptEmail implements ShouldQueue
      */
     public function handle()
     {
+        $generatedPdf = $this->pdfGenerator->createHEDInvoice($this->pdfFields, $this->filename);
+
         Mail::to($this->to)->send(
-            new Receipt($this->emailFields, $this->generatedPdf)
+            new Receipt($this->emailFields, $generatedPdf)
         );
     }
 

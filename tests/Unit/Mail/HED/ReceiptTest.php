@@ -62,6 +62,6 @@ class ReceiptTest extends TestCase
 
         $built = $mail->build();
 
-        static::assertCount(1, $built->attachments);
+        static::assertCount(1, $built->rawAttachments);
     }
 }

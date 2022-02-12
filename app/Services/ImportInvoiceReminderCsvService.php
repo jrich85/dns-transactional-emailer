@@ -6,8 +6,8 @@ use App\Jobs\SendInvoiceEmail;
 
 class ImportInvoiceReminderCsvService extends ImportInvoiceCsvService
 {
-    protected function dispatchEmail($to, $emailFields, $generatedPdf): void
+    protected function dispatchEmail($to, $emailFields, $pdfFields, $filename): void
     {
-        SendInvoiceEmail::dispatch($to, $emailFields, $generatedPdf, true);
+        SendInvoiceEmail::dispatch($to, $emailFields, $pdfFields, $filename, true);
     }
 }
