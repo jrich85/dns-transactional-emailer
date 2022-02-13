@@ -47,7 +47,7 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        $fileWithoutPath = explode('\\', $this->attachment);
+        $fileWithoutPath = explode('/', $this->attachment);
 
         return $this->view('email.HED.invoice')
             ->subject($this->subjectLine)
