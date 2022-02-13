@@ -3,6 +3,23 @@
 A bespoke email tool that ingests csv files with the proper datasets,
 then queues up processes to generate PDF files and email them to members.
 
+## Getting Started
+
+Requirements: A local installation of docker desktop should be installed.
+
+Once installed, create a .env file base on .env.example and fill in your details.
+
+Main updates to the .env file will be the `smtp` details in the Mail section. Also, ensure you have the following:
+
+```
+WWWGROUP=1000
+WWWUSER=1000
+```
+
+Once you have updated the .env file, you should be able to get started in the command line.
+Navigate to the directory in which this project has been installed and run
+`docker-compose up --build` and the containers should spin up locally. Once they're finished, navigate to https://localhost/ in your browser and you should be all set!
+
 ## Features
 
 ### Send Invoices/Send Reminder Invoices
