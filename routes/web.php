@@ -15,7 +15,7 @@ use App\Http\Controllers\PreviewController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('prompt-invoices');
 });
 
 Route::get('/invoice', 'CsvController@promptForInvoiceCsv')->name('prompt-invoices');
