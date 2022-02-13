@@ -1,66 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# DNS TRansactional EMail Replacement (TREMR)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A bespoke email tool that ingests csv files with the proper datasets,
+then queues up processes to generate PDF files and email them to members.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Send Invoices/Send Reminder Invoices
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Navigate to the Send Invoices page (or Send Reminder Invoices), choose
+a csv file to upload, then submit. The difference between these two features
+is a red paragraph in the email stating they must pay prior to termination.
+The PDF attachment is the same in either case.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#### Requirements
 
-## Learning Laravel
+The uploader will verify only the headers in the file, and trusts that the file
+being uploaded is properly formatted. All of the following headers are required, in any order:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+| Header            | Description                                       | Requirements    |
+| ----------------- | ------------------------------------------------- | --------------- |
+| id                | Member ID                                         | Cannot be empty |
+| name              | Full name                                         | Cannot be empty |
+| prefix            | Dr./Mr./Mrs. etc.                                 | Cannot be empty |
+| last name         | Last name                                         | Cannot be empty |
+| email             | Receiving email address                           | Cannot be empty |
+| address1          | Mailing address line 1                            | Cannot be empty |
+| address2          | Mailing address line 2                            | Can be empty    |
+| city              | Mailing address city                              | Cannot be empty |
+| province          | Mailing address province                          | Cannot be empty |
+| postal code       | Mailing address postal code                       | Cannot be empty |
+| incorporation     | Personal incorporation name                       | Can be empty    |
+| invoice date      | Date of invoice                                   | Cannot be empty |
+| invoice number    | Invoice Number                                    | Cannot be empty |
+| subscriber number | Health plan number                                | Cannot be empty |
+| fiscal start date | Effective start date of plan                      | Cannot be empty |
+| fiscal end date   | Effective end date of plan                        | Cannot be empty |
+| plan type         | Family/Senior Single/etc.                         | Cannot be empty |
+| amount            | Amount due (exactly as desired to be displayed)   | Cannot be empty |
+| due date          | Payment due date                                  | Cannot be empty |
+| pdf name          | Desired PDF filename (with out without extension) | Cannot be empty |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Preview Invoice Email/Preview Reminder Invoice Email
 
-## Laravel Sponsors
+Displays the invoice email template with dummy values placed (PREFIX, LAST NAME,
+MEMBER NUMBER, etc.) where the uploaded csv values will be placed.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Preview Invoice PDF
 
-### Premium Partners
+Displays an example PDF file that will be attached to the invoice email. The
+filename will be as supplied in the `pdf name` column of your csv file when attached
+to the email. The Invoice PDF is the same in both the Invoice and Reminder Invoice emails.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+### Send Receipt
 
-## Contributing
+Navigate to the Send Receipts page, choose a csv file to upload, then submit.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### Requirements
 
-## Code of Conduct
+The uploader will verify only the headers in the file, and trusts that the file
+being uploaded is properly formatted. All of the following headers are required, in any order:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Header        | Description                                       | Requirements    |
+| ------------- | ------------------------------------------------- | --------------- |
+| id            | Member ID                                         | Cannot be empty |
+| name          | Full name                                         | Cannot be empty |
+| prefix        | Dr./Mr./Mrs. etc.                                 | Cannot be empty |
+| last name     | Last name                                         | Cannot be empty |
+| email         | Receiving email address                           | Cannot be empty |
+| address1      | Mailing address line 1                            | Cannot be empty |
+| address2      | Mailing address line 2                            | Can be empty    |
+| city          | Mailing address city                              | Cannot be empty |
+| province      | Mailing address province                          | Cannot be empty |
+| postal code   | Mailing address postal code                       | Cannot be empty |
+| incorporation | Personal incorporation name                       | Can be empty    |
+| payment date  | Date of payment                                   | Cannot be empty |
+| plan type     | Family/Senior Single/etc.                         | Cannot be empty |
+| amount        | Amount due (exactly as desired to be displayed)   | Cannot be empty |
+| pdf name      | Desired PDF filename (with out without extension) | Cannot be empty |
 
-## Security Vulnerabilities
+### Preview Receipt Email
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Displays the receipt email template with dummy values placed (PREFIX, LAST NAME,
+MEMBER NUMBER, etc.) where the uploaded csv values will be placed.
 
-## License
+### Preview Receipt PDF
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Displays an example PDF file that will be attached to the receipt email. The
+filename will be as supplied in the `pdf name` column of your csv file when attached
+to the email.
