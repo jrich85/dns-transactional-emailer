@@ -24,7 +24,7 @@ class ImportInvoiceCsvRequest extends FormRequest
     public function rules()
     {
         return [
-            'csv_invoices' => 'required|file|mimes:csv|mimetypes:text/csv'
+            'csv_invoices' => 'required|file'
         ];
     }
 }

@@ -24,7 +24,7 @@ class ImportReceiptCsvRequest extends FormRequest
     public function rules()
     {
         return [
-            'csv_receipts' => 'required|file|mimes:csv|mimetypes:text/csv'
+            'csv_receipts' => 'required|file'
         ];
     }
 }
