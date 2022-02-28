@@ -77,23 +77,25 @@ Navigate to the Send Receipts page, choose a csv file to upload, then submit.
 The uploader will verify only the headers in the file, and trusts that the file
 being uploaded is properly formatted. All of the following headers are required, in any order:
 
-| Header        | Description                                       | Requirements    |
-| ------------- | ------------------------------------------------- | --------------- |
-| id            | Member ID                                         | Cannot be empty |
-| name          | Full name                                         | Cannot be empty |
-| prefix        | Dr./Mr./Mrs. etc.                                 | Cannot be empty |
-| last name     | Last name                                         | Cannot be empty |
-| email         | Receiving email address                           | Cannot be empty |
-| address1      | Mailing address line 1                            | Cannot be empty |
-| address2      | Mailing address line 2                            | Can be empty    |
-| city          | Mailing address city                              | Cannot be empty |
-| province      | Mailing address province                          | Cannot be empty |
-| postal code   | Mailing address postal code                       | Cannot be empty |
-| incorporation | Personal incorporation name                       | Can be empty    |
-| payment date  | Date of payment                                   | Cannot be empty |
-| plan type     | Family/Senior Single/etc.                         | Cannot be empty |
-| amount        | Amount due (exactly as desired to be displayed)   | Cannot be empty |
-| pdf name      | Desired PDF filename (with out without extension) | Cannot be empty |
+| Header            | Description                                       | Requirements    |
+| ----------------- | ------------------------------------------------- | --------------- |
+| id                | Member ID                                         | Cannot be empty |
+| name              | Full name                                         | Cannot be empty |
+| prefix            | Dr./Mr./Mrs. etc.                                 | Cannot be empty |
+| last name         | Last name                                         | Cannot be empty |
+| email             | Receiving email address                           | Cannot be empty |
+| address1          | Mailing address line 1                            | Cannot be empty |
+| address2          | Mailing address line 2                            | Can be empty    |
+| city              | Mailing address city                              | Cannot be empty |
+| province          | Mailing address province                          | Cannot be empty |
+| postal code       | Mailing address postal code                       | Cannot be empty |
+| incorporation     | Personal incorporation name                       | Can be empty    |
+| fiscal start date | Effective start date of policy                    | Cannot be empty |
+| fiscal end date   | Effective end date of policy                      | Cannot be empty |
+| payment date      | Date of payment                                   | Cannot be empty |
+| plan type         | Family/Senior Single/etc.                         | Cannot be empty |
+| amount            | Amount due (exactly as desired to be displayed)   | Cannot be empty |
+| pdf name          | Desired PDF filename (with out without extension) | Cannot be empty |
 
 ### Preview Receipt Email
 
