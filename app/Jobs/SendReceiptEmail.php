@@ -38,7 +38,6 @@ class SendReceiptEmail implements ShouldQueue
         $this->emailFields = $emailFields;
         $this->pdfFields = $pdfFields;
         $this->filename = $filename;
-        $this->pdfGenerator = resolve(PdfGeneratorService::class);
     }
 
     /**
@@ -48,7 +47,8 @@ class SendReceiptEmail implements ShouldQueue
      */
     public function handle()
     {
-        $generatedPdf = $this->pdfGenerator->createHEDInvoice($this->pdfFields, $this->filename);
+        $this->pdfGenerator = resolve(PdfGeneratorService::class);
+        $generatedPdf = $this->pdfGenerator->createHEDReceipt($this->pdfFields, $this->filename);
 
         Mail::to($this->to)->send(
             new Receipt($this->emailFields, $generatedPdf)
