@@ -16,14 +16,19 @@ body, .app-bar, aside {
 .app-bar {
     width:100%;
     font-weight:bold;
-    height: 3em;
+    height: 7em;
     display:flex;
     justify-content:space-between;
     align-items: center;
 }
 
+.app-bar div:first-child {
+    text-align:left;
+}
+
 .app-bar > div {
-    line-height:3em;
+    line-height:7em;
+    font-size:2.0rem;
 }
 
 .app-bar .img-wrapper {
@@ -117,4 +122,3 @@ button:hover,
 input[type="file"] {
     display:none;
 }
-
