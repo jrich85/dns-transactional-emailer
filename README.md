@@ -1,4 +1,4 @@
-# DNS TRansactional EMail Replacement (TREMR)
+# TRansactional EMail Replacement (TREMR)
 
 A bespoke email tool that ingests csv files with the proper datasets,
 then queues up processes to generate PDF files and email them to members.
@@ -18,7 +18,8 @@ WWWUSER=1000
 
 Once you have updated the .env file, you should be able to get started in the command line.
 Navigate to the directory in which this project has been installed and run
-`docker-compose up --build` and the containers should spin up locally. Once they're finished, navigate to https://localhost/ in your browser and you should be all set!
+`docker-compose up --build` and the containers should spin up locally. Once they're finished, navigate
+to https://localhost/ in your browser and you should be all set!
 
 ## Features
 
@@ -35,7 +36,7 @@ The uploader will verify only the headers in the file, and trusts that the file
 being uploaded is properly formatted. All of the following headers are required, in any order:
 
 | Header            | Description                                       | Requirements    |
-| ----------------- | ------------------------------------------------- | --------------- |
+|-------------------|---------------------------------------------------|-----------------|
 | id                | Member ID                                         | Cannot be empty |
 | name              | Full name                                         | Cannot be empty |
 | prefix            | Dr./Mr./Mrs. etc.                                 | Cannot be empty |
@@ -78,7 +79,7 @@ The uploader will verify only the headers in the file, and trusts that the file
 being uploaded is properly formatted. All of the following headers are required, in any order:
 
 | Header            | Description                                       | Requirements    |
-| ----------------- | ------------------------------------------------- | --------------- |
+|-------------------|---------------------------------------------------|-----------------|
 | id                | Member ID                                         | Cannot be empty |
 | name              | Full name                                         | Cannot be empty |
 | prefix            | Dr./Mr./Mrs. etc.                                 | Cannot be empty |

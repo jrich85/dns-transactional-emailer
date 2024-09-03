@@ -6,7 +6,7 @@
     </head>
     <body>
         <header>
-            <img class="dns-logo" src="images/company-logo.jpg">
+            <img class="company-logo" src="images/company-logo.jpg">
             <br class="clear" />
         </header>
         <section class="overview">

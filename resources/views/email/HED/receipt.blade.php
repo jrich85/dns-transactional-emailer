@@ -65,7 +65,7 @@
                 25 Lorem Ipsum Lane, Dolor Amit, QX H0H 0H0
                 <div class="separator"></div>
                 <i class="treaty-people">
-                    DNS sits and operates in Mi'kma'ki and Unama'ki, the traditional and unceded territories of
+                    Example Company Inc. sits and operates in Mi'kma'ki and Unama'ki, the traditional and unceded territories of
                     the Mi'kmaq. We are all Treaty People.
                 </i>
             </div>

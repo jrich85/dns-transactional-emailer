@@ -6,7 +6,7 @@
     </head>
     <body>
         <header>
-            <img class="dns-logo" src="images/company-logo.jpg">
+            <img class="company-logo" src="images/company-logo.jpg">
             <h1 class="clear">
                 Invoice<br>
                 Extended Health and Dental Plan<br>
